@@ -1,0 +1,8 @@
+name: SeedChecker
+version: ${project.version}
+main: jp.miyayu.seedchecker.MainClass
+api-version: 1.13
+load: STARTUP
+authors: [Miyayu]
+description: hogehoge
+website: https://twitter.com/yuu1111main
