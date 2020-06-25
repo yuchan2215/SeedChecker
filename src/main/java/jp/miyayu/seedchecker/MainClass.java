@@ -1,6 +1,8 @@
 package jp.miyayu.seedchecker;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.sql.Connection;
@@ -29,6 +31,11 @@ public final class MainClass extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        Bukkit.getLogger().info("停止処理中...");
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            PlayerLeave.playerQuit(player,true);
+        }
+        Bukkit.getLogger().info("停止処理完了！...");
         // Plugin shutdown logic
     }
 }
