@@ -19,6 +19,7 @@
     <url>https://twitter.com/yuu1111main</url>
 
     <build>
+        <finalName>SeedChecker</finalName>
         <defaultGoal>clean package</defaultGoal>
         <plugins>
             <plugin>
