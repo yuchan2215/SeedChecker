@@ -6,13 +6,14 @@ import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Objects; // hoopless
 
+@SuppressWarnings("SqlResolve") // hoopless - remove stupid error
 public class PlayerJoin implements Listener {
     @EventHandler
     public void onPlayerJoinEvent(PlayerJoinEvent event){
@@ -37,9 +38,13 @@ public class PlayerJoin implements Listener {
                             String name = event.getPlayer().getName();
                             BroadcastUtils.broadcastMessage(String.format(ChatColor.GRAY + "%sは%s(%s,%s,%s)でログアウトしましたが、シード値の変更を検知したため初期スポーン地点に転送されました",
                                     name,world,x,y,z));
-                            Location spawn = Bukkit.getWorld("world").getSpawnLocation();
-                            event.getPlayer().teleport(spawn);
-                            event.getPlayer().setFireTicks(0);
+                            // hoopless start - sync teleport
+                            Location spawn = Objects.requireNonNull(Bukkit.getWorld("world")).getSpawnLocation();
+                            Bukkit.getScheduler().runTask(MainClass.instance, () -> {
+                                event.getPlayer().teleport(spawn);
+                                event.getPlayer().setFireTicks(0);
+                            });
+                            // hoopless end - sync teleport
                         }
 
                     }
