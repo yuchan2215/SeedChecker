@@ -20,7 +20,8 @@ public class PlayerJoin implements Listener {
         new BukkitRunnable(){
             @Override
             public void run() {
-                try(Connection connection = DataBaseUtil.getSQLConnection()){
+                try{
+                    Connection connection = DataBaseUtil.getSQLConnection();
                     assert connection != null;
                     Statement statement = connection.createStatement();
                     String uuid = event.getPlayer().getUniqueId().toString();
@@ -48,6 +49,7 @@ public class PlayerJoin implements Listener {
                         }
 
                     }
+                    statement.close();
                 }catch(Exception e){
                     e.printStackTrace();
                     BroadcastUtils.broadcastMessage(ChatColor.GOLD  + "[SeedChecker]" + ChatColor.RED + "データベースへの接続に失敗しました");

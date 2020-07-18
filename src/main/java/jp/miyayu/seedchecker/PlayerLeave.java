@@ -24,7 +24,8 @@ public class PlayerLeave implements Listener {
     }
 
     public static void playerQuit(Player player,boolean isFinish){
-                try(Connection connection = DataBaseUtil.getSQLConnection()){
+                try{
+                    Connection connection = DataBaseUtil.getSQLConnection();
                     assert connection != null;
                     Statement statement = connection.createStatement();
                     String uuid = player.getUniqueId().toString();
